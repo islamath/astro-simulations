@@ -12,10 +12,10 @@ export default class MoonPhaseView extends React.Component {
 
         this.id = 'MoonPhaseView'
         this.moon = null;
-        this.radius = 100.5;
+        this.radius = 100;
 
-        // width: 228, height: 215
-        this.center = new PIXI.Point(228 / 2, 215 / 2);
+        // width: 200, height: 200
+        this.center = new PIXI.Point(200 / 2, 200 / 2);
     }
     render() {
         const phaseSlot = getPhaseSlot(this.props.moonAngle);
@@ -64,11 +64,12 @@ export default class MoonPhaseView extends React.Component {
 
         this.app = new PIXI.Application({
             width: this.center.x * 2,
-            height: this.center.y * 2
+            height: this.center.y * 2,
+            backgroundAlpha: 0, // transparent
         });
         this.el.appendChild(this.app.view);
 
-        this.app.loader.add('moon', 'img/moon.png');
+        this.app.loader.add('moon', 'img/moon-transparent-200x200.png');
 
         this.app.loader.load((loader, resources) => {
             me.moon = resources.moon;
@@ -93,6 +94,8 @@ export default class MoonPhaseView extends React.Component {
     }
     drawMoon(app) {
         const moon = new PIXI.Sprite(this.moon.texture);
+        // background color : gray
+
         app.stage.addChild(moon);
     }
     drawShades(app) {
